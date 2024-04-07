@@ -30,10 +30,8 @@ public class ProductImgDAOJDBCImpl implements ProductImgDAO {
 
         try (Connection connection = DriverManager.getConnection(JDBCUtil.URL, JDBCUtil.USER, JDBCUtil.PASSWORD);
              PreparedStatement ps = connection.prepareStatement(INSERT_STMT)) {
-
             ps.setInt(1, productImg.getProductNo());
             ps.setBytes(2, productImg.getProductImg());
-
             return ps.executeUpdate();
 
         } catch (SQLException se) {
@@ -47,10 +45,8 @@ public class ProductImgDAOJDBCImpl implements ProductImgDAO {
 
         try (Connection connection = DriverManager.getConnection(JDBCUtil.URL, JDBCUtil.USER, JDBCUtil.PASSWORD);
              PreparedStatement ps = connection.prepareStatement(UPDATE_STMT)) {
-
             ps.setBytes(1, productImg.getProductImg());
             ps.setInt(2, productImg.getProductImgNo());
-
             return ps.executeUpdate();
 
         } catch (SQLException se) {
@@ -64,9 +60,7 @@ public class ProductImgDAOJDBCImpl implements ProductImgDAO {
 
         try (Connection connection = DriverManager.getConnection(JDBCUtil.URL, JDBCUtil.USER, JDBCUtil.PASSWORD);
              PreparedStatement ps = connection.prepareStatement(DELETE_STMT)) {
-
             ps.setInt(1, productImgNo);
-
             return ps.executeUpdate();
 
         } catch (SQLException se) {
@@ -82,7 +76,6 @@ public class ProductImgDAOJDBCImpl implements ProductImgDAO {
 
         try (Connection connection = DriverManager.getConnection(JDBCUtil.URL, JDBCUtil.USER, JDBCUtil.PASSWORD);
              PreparedStatement ps = connection.prepareStatement(FIND_BY_PK)) {
-
             ps.setInt(1, productImgNo);
             ResultSet rs = ps.executeQuery();
 
@@ -112,7 +105,6 @@ public class ProductImgDAOJDBCImpl implements ProductImgDAO {
 
         try (Connection connection = DriverManager.getConnection(JDBCUtil.URL, JDBCUtil.USER, JDBCUtil.PASSWORD);
              PreparedStatement ps = connection.prepareStatement(GET_ALL)) {
-
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -142,10 +134,9 @@ public class ProductImgDAOJDBCImpl implements ProductImgDAO {
 
         try (Connection connection = DriverManager.getConnection(JDBCUtil.URL, JDBCUtil.USER, JDBCUtil.PASSWORD);
              PreparedStatement ps = connection.prepareStatement(GET_IMG_BY_PRODUCT_NO)) {
-
             ps.setInt(1, productNo);
             ResultSet rs = ps.executeQuery();
-
+            
             while (rs.next()) {
                 productImg = new ProductImg();
                 productImg.setProductImgNo(rs.getInt("product_img_no"));
