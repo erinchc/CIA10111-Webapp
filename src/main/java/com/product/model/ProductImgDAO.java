@@ -1,4 +1,4 @@
-package com.product;
+package com.product.model;
 
 import entity.ProductImg;
 

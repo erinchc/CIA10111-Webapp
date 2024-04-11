@@ -1,4 +1,4 @@
-package com.product;
+package com.product.model;
 
 import entity.ProductImg;
 import util.JDBCUtil;
@@ -11,10 +11,10 @@ import java.util.List;
 public class ProductImgDAOJDBCImpl implements ProductImgDAO {
 
     private static final String INSERT_STMT = "INSERT INTO product_img(product_no, product_img) VALUES (?, ?)";
-    private static final String UPDATE_STMT = "UPDATE product_img SET product_img = ? WHERE product_img_no = ?";
+    private static final String UPDATE_STMT = "UPDATE product_img SET product_no = ?, product_img = ? WHERE product_img_no = ?";
     private static final String DELETE_STMT = "DELETE FROM product_img WHERE product_img_no = ?";
     private static final String FIND_BY_PK = "SELECT * FROM product_img WHERE product_img_no = ?";
-    private static final String GET_ALL = "SELECT * FROM product_img";
+    private static final String GET_ALL = "SELECT * FROM product_img ORDER BY product_no, product_img_no";
     private static final String GET_IMG_BY_PRODUCT_NO = "SELECT product_img_no, product_img FROM product_img WHERE product_no = ?";
 
     static {
@@ -45,8 +45,9 @@ public class ProductImgDAOJDBCImpl implements ProductImgDAO {
 
         try (Connection connection = DriverManager.getConnection(JDBCUtil.URL, JDBCUtil.USER, JDBCUtil.PASSWORD);
              PreparedStatement ps = connection.prepareStatement(UPDATE_STMT)) {
-            ps.setBytes(1, productImg.getProductImg());
-            ps.setInt(2, productImg.getProductImgNo());
+            ps.setInt(1, productImg.getProductNo());
+            ps.setBytes(2, productImg.getProductImg());
+            ps.setInt(3, productImg.getProductImgNo());
             return ps.executeUpdate();
 
         } catch (SQLException se) {
